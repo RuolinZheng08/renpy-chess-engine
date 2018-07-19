@@ -1,13 +1,13 @@
 ## Chess Game: A Ren'Py Chess Engine
 
-#### About
+### About
 
 This repo contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate the integration of a mini-game into a Ren'Py Visual Novel with the help of Ren'Py Displayable.
 
 Within the Ren'Py Chess Game, there are two available gameplay modes, *Player vs. Self* and *Player vs. Computer*. Out of consideration for computation speed and VN players' expectations for a mini-game in a Visual Novel, the Computer chess player is of a minimal chess AI implementation.
 
 #
-#### Adapting the Chess Game to other Ren'Py projects
+### Adapting the Chess Game to other Ren'Py projects
 
 
 The code for the Ren'Py Chess Game is in the Public Domain and can be used and / or modified in any free or commercial projects.
@@ -20,7 +20,7 @@ The code for the Ren'Py Chess Game is in the Public Domain and can be used and /
 > - `screens.rpy` - the mini-game screen holding the Displayable
 > - `script.rpy` - the game script that calls the mini-game screen  
 
-##### Instructions
+#### Instructions
 Copy the image files, `chesslogic.py`, `chessai.py` and `chessgui.rpy` into your `game/` directory.  
 Paste the following code into specified `.rpy` files.
 > In `screens.rpy`  
@@ -62,7 +62,7 @@ label start:
 ```
 
 
-##### Customization for different window size  
+#### Customization for different window size  
 By Ren'Py default configuration, this code assumes a window size of `1280 * 720`. If a different window size is used, the following changes will need to be made.
 > **Files and directories of concern:**
 > - `chesslogic.py` - change in configurations
@@ -97,7 +97,7 @@ X_OFFSET = 280
 LOC_SIZE = 90
 ```
 
-##### Customization for different styles
+#### Customization for different styles
 > **Files and directories of concern:**
 > - `chessgui.rpy` - changes in displayed text and style
 > - `images/bg chessboard.png` - changes in art style
@@ -142,7 +142,7 @@ class ChessDisplayable(renpy.Displayable):
 ```
   
 #
-#### Reference
+### Reference
 **Chess GUI**
 - [Ren'Py Displayables](https://www.renpy.org/doc/html/displayables.html)
 - [Ren'Py Creator-Defined Displayables](https://www.renpy.org/doc/html/udd.html)
@@ -158,7 +158,7 @@ class ChessDisplayable(renpy.Displayable):
 - [Building a Simple Chess AI](https://byanofsky.com/2017/07/06/building-a-simple-chess-ai/)
 
 #
-#### TODOs
+### TODOs
 More features that I may find time to do in the future:  
 - castling, en passant, promotion
 - allowing the player to choose whether to play as `Black` or `White` in *Player vs. Computer*
