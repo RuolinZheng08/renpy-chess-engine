@@ -1,3 +1,5 @@
+tests.py
+
 *.rpyc
 *.rpyb
 *.rpymc

@@ -1,4 +1,13 @@
-﻿################################################################################
+﻿# The Ren'Py Chess Game
+# Updated 07/19/2018
+
+# Author: Ruolin Zheng
+# GitHub: RuolinZheng08
+
+# This code belongs in the Public Domain.
+# Feel free to re-use and / or modify in free or commercial products.
+
+################################################################################
 ## Initialization
 ################################################################################
 
@@ -87,6 +96,8 @@ screen minigame(ai_mode):
     default chess = ChessDisplayable(chess_ai=ai_mode)
     add "bg chessboard"
     add chess
+    if chess.winner:
+        timer 6.0 action Return(chess.winner)
 
 
 ## Say screen ##################################################################

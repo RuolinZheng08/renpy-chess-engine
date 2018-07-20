@@ -1,3 +1,14 @@
+# The Ren'Py Chess Game
+# Updated 07/19/2018
+
+# Author: Ruolin Zheng
+# GitHub: RuolinZheng08
+
+# This code belongs in the Public Domain.
+# Feel free to re-use and / or modify in free or commercial products.
+
+###############################################################################
+
 label chessgui:
 
     init python:
@@ -14,6 +25,15 @@ label chessgui:
 
                 # Objects and logic
                 self.chessgame = ChessGame()
+                self.chessgame.board = \
+                board_from_strings(('RN---BNR',
+                                    'PBP--q--',
+                                    '-------K',
+                                    '------QP',
+                                    '---pp---',
+                                    '--------',
+                                    'ppp--pp-',
+                                    'rnb-k--r'))
                 if chess_ai:
                     self.chessai = ChessAI()
                 else:
@@ -104,21 +124,28 @@ label chessgui:
                                 self.src_coord, self.dst_coord = None, None
                                 self.moves_list_piece = []
                 # AI's turn in Player vs.AI:
-                elif self.chessai and self.chessgame.whose_turn() == 'Black':
+                if self.chessai and self.chessgame.whose_turn() == 'Black':
                     ai_move = self.chessai.pick_move(self.chessgame)
-                    self.chessgame.apply_move(ai_move)
+                    if ai_move:
+                        self.chessgame.apply_move(ai_move)
                     self.player_text = Text("Whose turn: %s" % self.chessgame.whose_turn(), color='#fff', size=26)
                     renpy.redraw(self, 0)
                         
                 # Handle key
                 keys = pygame.key.get_pressed()
-                # undo a move if it is player's turn, and both player and ai have moved
-                if len(self.chessgame.history) and not len(self.chessgame.history) & 0x1:
+                # undoing moves
+                num_moves = len(self.chessgame.history)
+                if num_moves != 0:
                     if keys[pygame.K_LEFT]:
                         renpy.notify("You can undo a move by pressing <-")
-                        # undo the move by AI and by player
-                        self.chessgame.undo_move()
-                        self.chessgame.undo_move()
+                        # undo one move in Player vs. Self
+                        if not self.chessai:
+                            self.chessgame.undo_move()
+                        # undo two moves in Player vs. Computer
+                        else:
+                            if not num_moves & 0x1:
+                                self.chessgame.undo_move()
+                                self.chessgame.undo_move()
                         renpy.redraw(self, 0)
 
                 # Status texts and End Game condition
@@ -128,16 +155,15 @@ label chessgui:
                     self.status_text = Text("")
 
                 if self.chessgame.stalemate():
-                    self.status_text = Text("Stalemate", color='#fff', size=26)
-                    self.winner = 'none'
+                    self.player_text = Text("Stalemate", color='#fff', size=26)
+                    self.status_text = Text("Winner: None", color='#fff', size=26)
+                    self.winner = 'draw'
                     renpy.redraw(self, 0)
 
                 if self.chessgame.checkmate():
                     winner = opponent_color(self.chessgame.whose_turn())
-                    if winner == 'Black':
-                        self.winner = 'player'
-                    else:
-                        self.winner = 'computer'
+                    self.winner = winner
+                    self.player_text = Text("Checkmate", color='#fff', size=26)
                     self.status_text = Text("Winner: %s" % winner, color='#fff', size=26)
                     renpy.redraw(self, 0)
 
@@ -145,9 +171,9 @@ label chessgui:
                 # Exits when user clicks anywhere on the screen
                 if self.winner:
                     self.hover_coord = None
+                    self.moves_list_piece = []
                     renpy.redraw(self, 0)
-                    if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
-                        return self.winner
+                    renpy.notify("Exiting Chess Game, the Winner is %s" % winner)
 
             def visit(self):
                 return [ self.player_text, self.status_text ]

@@ -1,9 +1,21 @@
+# The Ren'Py Chess Game
+# Updated 07/19/2018
+
+# Author: Ruolin Zheng
+# GitHub: RuolinZheng08
+
+# This code belongs in the Public Domain.
+# Feel free to re-use and / or modify in free or commercial products.
+
+###############################################################################
+
 # Chess AI for chess gui
 # Reference: 
 # http://blog.mbuffett.com/creating-a-basic-chess-ai-using-python/
 # https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977
 # https://byanofsky.com/2017/07/06/building-a-simple-chess-ai/
 
+from chesslogic import Piece, Move, opponent_color
 import random
 
 ###############################################################################
@@ -57,7 +69,12 @@ class ChessAI(object):
         best_value = move_node.value
         best_value_moves = []
         best_value_moves.append(move_node.move)
-    return random.choice(best_value_moves)
+
+    # AI is checkmated and has no available move
+    if best_value_moves == []:
+      return None
+    else:
+      return random.choice(best_value_moves)
 
   def generate_move_tree(self, chessgame):
     root = MoveNode()
@@ -89,7 +106,13 @@ class ChessAI(object):
       parent_move_node.children.append(child_move_node)
 
   def optimize_move_value(self, parent_move_node):
-    return min([child.value for child in parent_move_node.children])
+    # Player is checkmated and has no available move
+    if parent_move_node.children == []:
+      checkmate_move = Move(None, None, Piece('King', opponent_color(parent_move_node.move.moved.player)))
+      assert checkmate_move.moved.player == 'White'
+      return get_move_value(checkmate_move)
+    else:
+      return min([child.value for child in parent_move_node.children])
 
 ###############################################################################
 # Helper functions

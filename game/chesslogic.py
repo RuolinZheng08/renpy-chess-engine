@@ -1,3 +1,14 @@
+# The Ren'Py Chess Game
+# Updated 07/19/2018
+
+# Author: Ruolin Zheng
+# GitHub: RuolinZheng08
+
+# This code belongs in the Public Domain.
+# Feel free to re-use and / or modify in free or commercial products.
+
+###############################################################################
+
 # Configurations for chess gui
 X_MIN = 280
 X_MAX = 1000
@@ -237,10 +248,13 @@ class ChessGame(object):
     king_loc = self.get_player_king_loc()
     assert king_loc
     if self.threatened_along_vectors(king_loc, Piece('Rook', opponent), RBQ_DIST):
+      print "R"
       return True
     elif self.threatened_along_vectors(king_loc, Piece('Bishop', opponent), RBQ_DIST):
+      print "B"
       return True
     elif self.threatened_along_vectors(king_loc, Piece('Queen', opponent), RBQ_DIST):
+      print "Q"
       return True
     elif self.threatened_along_vectors(king_loc, Piece('King', opponent), KING_DIST):
       return True
