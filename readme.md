@@ -2,9 +2,15 @@
 
 ### About
 
-This repo contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate the integration of a mini-game into a Ren'Py Visual Novel with the help of Ren'Py Displayable.
+This repo contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate how to integrate a Mini-game into a Ren'Py Visual Novel with screen language and Ren'Py Displayable.
 
-Within the Ren'Py Chess Game, there are two available gameplay modes, *Player vs. Self* and *Player vs. Computer*. Out of consideration for computation speed and VN players' expectations for a mini-game in a Visual Novel, the Computer chess player is of a minimal chess AI implementation.
+Within the Ren'Py Chess Game, there are two available gameplay modes, *Player vs. Self* and *Player vs. Computer*. Out of consideration for computation speed and VN players' expectations for a mini-game embedded in a Visual Novel, the Computer chess player is a chess AI of minimal implementation.
+
+### Gameplay and Operations
+
+Player will be able to choose from the two available gameplay modes, *Player vs. Self* and *Player vs. Computer*. In *Player vs. Self*, the Player chooses moves for both Black and White. In *Player vs. Computer*, the Player plays as White by default.
+
+Click on a piece and all of its available moves will be highlighted. Click on any of the available destination squares to make a move. Press `<-` on the keyboard to undo moves.
 
 #
 ### Adapting the Chess Game to other Ren'Py projects
@@ -22,7 +28,7 @@ The code for the Ren'Py Chess Game is in the Public Domain and can be used and /
 
 #### Instructions
 Copy the image files, `chesslogic.py`, `chessai.py` and `chessgui.rpy` into your `game/` directory.  
-Paste the following code into specified `.rpy` files.
+Copy and paste the following code into specified `.rpy` files.
 > In `screens.rpy`  
 > Note that ai_mode is a Boolean, for *Player vs. Self*, call `screen minigame(False)` and for *Player vs. Computer*, call `screen minigame(True)` 
 ```python
@@ -31,6 +37,8 @@ screen minigame(ai_mode):
     default chess = ChessDisplayable(chess_ai=ai_mode)
     add "bg chessboard"
     add chess
+    if chess.winner:
+        timer 6.0 action Return(chess.winner)
 ``` 
 
 
@@ -39,6 +47,7 @@ screen minigame(ai_mode):
 ```python
 label start:
     $ ai_mode = False
+    $ winner = None
 
     "Welcome to the Ren'Py Chess Game!"
 
@@ -50,15 +59,29 @@ label start:
                 $ ai_mode = False
             "Player vs. Computer":
                 $ ai_mode = True
+                # Player plays White by default
+                $ player_color = 'White'
+                $ computer_color = 'Black'
+
     window hide
-    # Minigame starts below
+
+    # Start chess game
     call screen minigame(ai_mode)
+    # End chess game
+    $ winner = _return
 
     if ai_mode:
-        if _return == 'player':
+        if winner == player_color:
             "Congratulations! You won!"
+        elif winner == computer_color:
+            "The computer defeated you. Better luck next time!"
+        elif winner == 'draw':
+            "The game ended in a draw. See if you can win the next time!"
+    else:
+        if winner != 'draw':
+            "The winner is [winner]! Congratulations!"
         else:
-            "Better luck next time!"
+            "The game ended in a draw."
 ```
 
 
