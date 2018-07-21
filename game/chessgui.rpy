@@ -25,15 +25,6 @@ label chessgui:
 
                 # Objects and logic
                 self.chessgame = ChessGame()
-                self.chessgame.board = \
-                board_from_strings(('RN---BNR',
-                                    'PBP--q--',
-                                    '-------K',
-                                    '------QP',
-                                    '---pp---',
-                                    '--------',
-                                    'ppp--pp-',
-                                    'rnb-k--r'))
                 if chess_ai:
                     self.chessai = ChessAI()
                 else:
