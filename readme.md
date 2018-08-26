@@ -149,7 +149,7 @@ class ChessDisplayable(renpy.Displayable):
         renpy.Displayable.__init__(self)
         ...
         # create new displayables by setting color and text
-		self.image_displayable = Solid(color, **properties)
+	self.image_displayable = Solid(color, **properties)
         self.text_displayable = Text(text, **properties)
         ...
         
