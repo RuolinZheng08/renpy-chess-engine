@@ -2,9 +2,13 @@
 
 ### About
 
-This repo contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate how to integrate a Mini-game into a Ren'Py Visual Novel with screen language and Ren'Py Displayable.
+This repository contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate how to integrate a Mini-game into a Ren'Py Visual Novel with screen language and Ren'Py Displayable.
 
 Within the Ren'Py Chess Game, there are two available gameplay modes, *Player vs. Self* and *Player vs. Computer*. Out of consideration for computation speed and VN players' expectations for a mini-game embedded in a Visual Novel, the Computer chess player is a chess AI of minimal implementation.
+
+<img src="https://imgur.com/mVLyHOr.png" title="Mode Selection" width="400">
+<img src="https://i.imgur.com/NFSRZ6y.png" title="Example Chess Board" width="400">
+<img src="https://i.imgur.com/nrBjIwH.png" title="Example Available Moves" width="400">
 
 ### Gameplay and Operations
 
@@ -31,7 +35,7 @@ Copy the image files, `chesslogic.py`, `chessai.py` and `chessgui.rpy` into your
 Copy and paste the following code into specified `.rpy` files.
 > In `screens.rpy`  
 > Note that ai_mode is a Boolean, for *Player vs. Self*, call `screen minigame(False)` and for *Player vs. Computer*, call `screen minigame(True)` 
-```python
+```renpy
 ## This screen is used for the chess game.
 screen minigame(ai_mode):
     default chess = ChessDisplayable(chess_ai=ai_mode)
@@ -44,7 +48,7 @@ screen minigame(ai_mode):
 
 > In `script.rpy` (or any script file in which the chess game should occur)
 > Note the way `screen minigame()` is called with the variable `ai_mode`
-```python
+```renpy
 label start:
     $ ai_mode = False
     $ winner = None
@@ -98,7 +102,7 @@ The current chess pieces are of size `81 * 81`, fitting into each `90 * 90` squa
 Then make changes to the following configuration parameters in `chesslogic.py`
 
 > In `chesslogic.py`
-``` python
+``` renpy
 # Configurations for chess gui
 
 # the leftmost coordinate of the chessboard
@@ -129,7 +133,7 @@ LOC_SIZE = 90
 Customize the art of the image files as you wish.  
 The following stylistic changes can be made in `chessgui.rpy`.
 > In `chessgui.rpy`
-```python
+```renpy
 # customize the RGBA colors and texts
 self.hover_image = Solid('#00ff0050', xsize=LOC_SIZE, ysize=LOC_SIZE)
 self.clicked_image = Solid('#0a82ff88', xsize=LOC_SIZE, ysize=LOC_SIZE)
@@ -138,7 +142,7 @@ self.player_text = Text("Whose turn: White", color='#fff', size=26)
 self.status_text = Text("")
 ```
 > To add new displayables in `chessgui.rpy`
-```python
+```renpy
 class ChessDisplayable(renpy.Displayable):
 
     def __init__(self, chess_ai=None):
