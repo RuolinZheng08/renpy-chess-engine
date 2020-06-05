@@ -1,5 +1,7 @@
 tests.py
 
+.DS_Store
+
 *.rpyc
 *.rpyb
 *.rpymc
