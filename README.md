@@ -1,5 +1,8 @@
 ## Chess Game: A Ren'Py Chess Engine
 
+### Update
+A newer version using [python-chess](https://github.com/niklasf/python-chess) (also integrates [Stockfish](https://stockfishchess.org/) for chess AI) is under active development. Please watch [my renpy-chess repository](https://github.com/RuolinZheng08/renpy-chess) for updates.
+
 ### About
 
 This repository contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate how to integrate a Mini-game into a Ren'Py Visual Novel with screen language and Ren'Py Displayable.
