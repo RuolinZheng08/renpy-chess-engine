@@ -1,9 +1,16 @@
-## Chess Game: A Ren'Py Chess Engine
+# Ren'Py Chess Engine 1.0
 
-### Update
-A newer version using [python-chess](https://github.com/niklasf/python-chess) (also integrates [Stockfish](https://stockfishchess.org/) for chess AI) is under active development. Please watch [my renpy-chess repository](https://github.com/RuolinZheng08/renpy-chess) for updates.
+## Update
+Version 2.0 using [python-chess](https://github.com/niklasf/python-chess) (also integrates [Stockfish](https://stockfishchess.org/) for chess AI) is published in [my renpy-chess repository](https://github.com/RuolinZheng08/renpy-chess). It is under active and continuous maintenance. 
 
-### About
+## Differences between Ren'Py Chess 1.0 and Ren'Py Chess 2.0
+
+|   | Pros  | Cons  |
+|---|---|---|
+| [Ren'Py Chess 1.0](https://github.com/RuolinZheng08/renpy-chess-engine)  | <ul><li>Has no Python package dependency hence supports any OS: Windows, Mac, Linux, Android, iOS, and even Web browser-play</li></ul> | <ul><li>Does not support en passant, castling, or promotion</li> <li>Player can only play as White in Player vs. Computer</li> <li>Uses a chess AI of minimal implementation with no support for customizing the strength of the AI</li></ul>   |
+| [Ren'Py Chess 2.0](https://github.com/RuolinZheng08/renpy-chess)  | <ul><li>Has full support for en passant and castling, plus a special UI for promotion</li> <li>Uses Stockfish and supports customization of the strength (thinking time, depth) of the chess AI</li></ul>  | <ul><li>Only tested on Mac. If you are on other OS and encounter a problem, please submit a GitHub issue</li></ul>  |
+
+## About
 
 This repository contains the source code of a basic Chess Engine made with Ren'Py. The main purpose of this project is to demonstrate how to integrate a Mini-game into a Ren'Py Visual Novel with screen language and Ren'Py Displayable.
 
@@ -13,14 +20,13 @@ Within the Ren'Py Chess Game, there are two available gameplay modes, *Player vs
 <img src="https://i.imgur.com/NFSRZ6y.png" title="Example Chess Board" width="400">
 <img src="https://i.imgur.com/nrBjIwH.png" title="Example Available Moves" width="400">
 
-### Gameplay and Operations
+## Gameplay and Operations
 
 Player will be able to choose from the two available gameplay modes, *Player vs. Self* and *Player vs. Computer*. In *Player vs. Self*, the Player chooses moves for both Black and White. In *Player vs. Computer*, the Player plays as White by default.
 
 Click on a piece and all of its available moves will be highlighted. Click on any of the available destination squares to make a move. Press `<-` on the keyboard to undo moves.
 
-#
-### Adapting the Chess Game to other Ren'Py projects
+## Adapting the Chess Game to other Ren'Py projects
 
 
 The code for the Ren'Py Chess Game is in the Public Domain and can be used and / or modified in any free or commercial projects.
@@ -33,7 +39,7 @@ The code for the Ren'Py Chess Game is in the Public Domain and can be used and /
 > - `screens.rpy` - the mini-game screen holding the Displayable
 > - `script.rpy` - the game script that calls the mini-game screen  
 
-#### Instructions
+### Instructions
 Copy the image files, `chesslogic.py`, `chessai.py` and `chessgui.rpy` into your `game/` directory.  
 Copy and paste the following code into specified `.rpy` files.
 > In `screens.rpy`  
@@ -92,7 +98,7 @@ label start:
 ```
 
 
-#### Customization for different window size  
+### Customization for different window size  
 By Ren'Py default configuration, this code assumes a window size of `1280 * 720`. If a different window size is used, the following changes will need to be made.
 > **Files and directories of concern:**
 > - `chesslogic.py` - change in configurations
@@ -127,7 +133,7 @@ X_OFFSET = 280
 LOC_SIZE = 90
 ```
 
-#### Customization for different styles
+### Customization for different styles
 > **Files and directories of concern:**
 > - `chessgui.rpy` - changes in displayed text and style
 > - `images/bg chessboard.png` - changes in art style
@@ -171,8 +177,7 @@ class ChessDisplayable(renpy.Displayable):
         return render
 ```
   
-#
-### Reference
+## Reference
 **Chess GUI**
 - [Ren'Py Displayables](https://www.renpy.org/doc/html/displayables.html)
 - [Ren'Py Creator-Defined Displayables](https://www.renpy.org/doc/html/udd.html)
@@ -186,9 +191,3 @@ class ChessDisplayable(renpy.Displayable):
 - [Creating a Basic Chess AI Using Python](http://blog.mbuffett.com/creating-a-basic-chess-ai-using-python/)
 - [Simple Chess AI Step by Step](https://medium.freecodecamp.org/simple-chess-ai-step-by-step-1d55a9266977)
 - [Building a Simple Chess AI](https://byanofsky.com/2017/07/06/building-a-simple-chess-ai/)
-
-#
-### TODOs
-More features that I may find time to do in the future:  
-- castling, en passant, promotion
-- allowing the player to choose whether to play as `Black` or `White` in *Player vs. Computer*
